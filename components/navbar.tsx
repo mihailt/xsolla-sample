@@ -24,7 +24,9 @@ export const Navbar = async () => {
         <div className="flex">
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src={"/next.svg"}
+              src={
+                "https://cdn.xsolla.net/strapi-bucket-prod/x_7bf715c4bd/x_7bf715c4bd.svg"
+              }
               alt={"xsolla"}
               width={40}
               height={40}
