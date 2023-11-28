@@ -67,6 +67,18 @@ export default function Item(props: VirtualItemItemProps) {
     setLoading(true);
     const data = await fetchPurchaseItemLink({ sku });
     setLoading(false);
+
+    if (data.token) {
+      // @ts-ignore
+      XPayStationWidget.init({
+        access_token: data.token,
+        sandbox: true,
+        iframeOnly: true,
+      });
+
+      // @ts-ignore
+      XPayStationWidget.open();
+    }
   };
 
   return (

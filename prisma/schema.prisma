@@ -17,4 +17,36 @@ model User {
   token     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  orders Order[] @relation("orders")
+}
+
+model Order {
+  id        String   @id @default(uuid())
+  order_id  Int @unique
+  sku    String
+  status    String
+  amount    String
+  invoice_id String?
+  amount_without_discount String
+  currency  String
+  mode String @default("sandbox")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User? @relation("orders", fields: [userId], references: [id])
+  userId String?
+  items OrderItem[] @relation("orderitems")
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  sku    String
+  quantity Int
+  amount    String
+  amount_without_discount String
+  currency  String
+  order Order? @relation("orderitems", fields: [orderId], references: [id])
+  orderId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
