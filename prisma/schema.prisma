@@ -18,6 +18,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders Order[] @relation("orders")
+  transactions Transaction[] @relation("transactions")
 }
 
 model Order {
@@ -49,4 +50,25 @@ model OrderItem {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Transaction {
+  id        String   @id @default(uuid())  
+
+  transaction_id Int
+  payment_method_order_id  String
+  dry_run Int
+  agreement Int
+  payment_date DateTime
+  payment_method Int
+  payment_method_name String
+
+  amount    Float
+  currency  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User? @relation("transactions", fields: [userId], references: [id])
+  userId String?
 }
